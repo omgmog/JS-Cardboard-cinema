@@ -31,9 +31,23 @@
     controls.dampingFactor = 0.25;
     controls.enableZoom = false;
   }
+  var getQueryParams = function (qs) {
+      qs = qs.split('+').join(' ');
 
+      var params = {},
+          tokens,
+          re = /[?&]?([^=]+)=([^&]*)/g;
+
+      while (tokens = re.exec(qs)) {
+          params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+      }
+
+      return params;
+  };
+  var video_from_params = (getQueryParams(document.location.search)).video;
+  var video_id = video_from_params? video_from_params : 'ZEPq0FvFm3g';
   var iframe = document.createElement('iframe');
-  iframe.src = 'https://www.youtube.com/embed/ZEPq0FvFm3g';
+  iframe.src = 'https://www.youtube.com/embed/' + video_id;
   iframe.width = 400;
   iframe.height = 300;
   var css3do = new T.CSS3DObject( iframe );
